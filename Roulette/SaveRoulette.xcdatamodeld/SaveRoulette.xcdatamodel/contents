@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Roulette" representedClassName="Roulette" syncable="YES" codeGenerationType="class">
+        <attribute name="elementFontColor" optional="YES" attributeType="Binary"/>
+        <attribute name="elements" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="rouletteBackgroundColor" optional="YES" attributeType="Binary"/>
+        <attribute name="rouletteSound" optional="YES" attributeType="String"/>
+        <attribute name="rouletteSpeed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="rouletteSpin" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rouletteTime" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="rouletteTitle" optional="YES" attributeType="String"/>
+        <attribute name="saveDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="Roulette" positionX="-63" positionY="-18" width="128" height="193"/>
+    </elements>
+</model>
