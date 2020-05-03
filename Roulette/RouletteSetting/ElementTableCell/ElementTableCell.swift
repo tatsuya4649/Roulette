@@ -10,10 +10,9 @@ import UIKit
 
 protocol ElementTableCellDelegate : AnyObject{
     func colorButtonClick(_ cell:ElementTableCell,_ button:UIButton)
-    func areaChangeGetter(_ cell: ElementTableCell, _ area: Float,_ totalArea : Float)
+    func areaChangeGetter(_ cell: ElementTableCell, _ area: Float,_ totalArea : Float?)
     func getNowTotalValue(_ cell:ElementTableCell,_ beforeValue:Float)
-    func changeRouletteTitle(_ cell:ElementTableCell,_ title:String)
-    func keyboardCheckTrueTitle()
+    func changeRouletteElementTitle(_ cell:ElementTableCell,_ title:String)
     func keyboardCheckTrueElement(_ cell:ElementTableCell)
 }
 
@@ -63,6 +62,7 @@ class ElementTableCell: UITableViewCell {
         nameTextField.leftView = UIView(frame: CGRect(x:0, y:0, width:10, height:0))
         nameTextField.leftViewMode = UITextField.ViewMode.always
         nameTextField.center = CGPoint(x: colorButton.frame.maxX + 10 + nameTextField.frame.size.width/2, y: self.contentView.frame.size.height/2)
+        nameTextField.addTarget(self, action: #selector(changeRouletteElementTitle), for: .editingChanged)
         self.contentView.addSubview(nameTextField)
         numberTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
         numberTextField.backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
@@ -85,7 +85,7 @@ class ElementTableCell: UITableViewCell {
         percentLabel.center = CGPoint(x: numberTextField.frame.maxX + 5 + percentLabel.frame.size.width/2, y: self.contentView.frame.size.height/2)
         self.contentView.addSubview(percentLabel)
         stopSound = .stopSound1
-        hit = .none
+        hit = RouletteResult.none
         
         if totalArea != nil{
             if numberTextField.text != nil{
@@ -97,6 +97,11 @@ class ElementTableCell: UITableViewCell {
             totalArea = Float(0)
         }
     }
+    @objc func changeRouletteElementTitle(_ sender:UITextField){
+        guard let title = sender.text else{return}
+        guard let delegate = delegate else {return}
+        delegate.changeRouletteElementTitle(self,title)
+    }
     @objc func colorButtonClick(_ sender:UIButton){
         print("カラーピッカーがクリックされました。")
         guard let delegate = delegate else{return}
@@ -106,6 +111,8 @@ class ElementTableCell: UITableViewCell {
         guard let delegate = delegate else{return}
         delegate.getNowTotalValue(self, beforeValue != nil ? beforeValue : 0)
         guard let text = sender.text else{return}
+        print("``````")
+        print(beforeValue)
         if var number = Int(text) {
             number =  Int(totalAreaCheck(Float(number)))
             if number > 100{
@@ -118,6 +125,8 @@ class ElementTableCell: UITableViewCell {
             beforeValue = Float(number)
         }else{
             sender.text = nil
+            delegate.areaChangeGetter(self, 0,nil)
+            beforeValue = nil
         }
     }
     private func totalAreaCheck(_ number:Float)->Float{

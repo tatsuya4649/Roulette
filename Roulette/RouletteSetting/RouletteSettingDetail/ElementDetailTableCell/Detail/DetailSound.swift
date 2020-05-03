@@ -90,5 +90,8 @@ extension ElementDetailTableCell:UIPickerViewDataSource,UIPickerViewDelegate{
         guard let _ = rouletteStopSoundPlayer else{return}
         rouletteStopSoundPlayer = nil
     }
+    public func stopSound(){
+        removeAVAudioPlayer()
+    }
 
 }

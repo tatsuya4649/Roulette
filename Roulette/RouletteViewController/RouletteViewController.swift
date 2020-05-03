@@ -33,10 +33,23 @@ class RouletteViewController: UIViewController {
     var rouletteSpeed : Float!
     var rouletteTime : Float!
     var rouletteManageObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //ルーレットをボタン化させる
+    var rouletteButton : UIButton!
+    weak var delegate : RouletteViewControllerDelegtate!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         self.title = "ルーレット"
+        // Do any additional setup after loading the view.
+        do{
+            try AVAudioSession.sharedInstance().setCategory(.ambient,mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }catch{
+            print("オーティオの設定に失敗しました。")
+        }
+    }
+    
+    func setUp(){
+        
         settingElement()
         settingRouletteSound()
         settingRouletteView()
@@ -44,13 +57,20 @@ class RouletteViewController: UIViewController {
         startButtonSetting()
         
         navigationSetting()
-        // Do any additional setup after loading the view.
     }
     
     private func settingRouletteView(){
-        rouletteView = RouletteView(frame:CGRect(x:0,y:0,width:self.view.frame.size.width*0.8,height:self.view.frame.size.width*0.8),elements: elements,fontColor:elementFontColor)
-        rouletteView.center = self.view.center
+        print(self.view.frame.size.height/self.view.frame.size.width)
+        let height = self.view.frame.size.height/self.view.frame.size.width < 1.2 ? min(self.view.frame.size.width*0.6,500) : min(self.view.frame.size.width*0.8,500)
+        
+        rouletteView = RouletteView(frame:CGRect(x:0,y:0,width:height,height:height),elements: elements,fontColor:elementFontColor)
+        rouletteView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 10)
         self.view.addSubview(rouletteView)
+        rouletteButton = UIButton(frame:rouletteView.frame)
+        rouletteButton.layer.cornerRadius = rouletteView.layer.cornerRadius
+        rouletteButton.center = rouletteView.center
+        rouletteButton.addTarget(self, action: #selector(startAnimation), for: .touchUpInside)
+        self.view.addSubview(rouletteButton)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -62,7 +82,16 @@ class RouletteViewController: UIViewController {
             rouletteStopSound = nil
         }
     }
-
+    
+    public func changeTheLayer(){
+        guard let _ = rouletteView else{return}
+        rouletteView.removeFromSuperview()
+        rouletteView = nil
+        settingRouletteView()
+    }
+    public func changeTheSound(){
+        settingRouletteSound()
+    }
     /*
     // MARK: - Navigation
 

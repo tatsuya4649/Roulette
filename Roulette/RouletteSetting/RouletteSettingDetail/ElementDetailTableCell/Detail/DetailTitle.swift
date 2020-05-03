@@ -14,8 +14,9 @@ protocol DetailSettingDelegate:AnyObject{
     func rouletteChangeResult(_ cell:ElementDetailTableCell,_ result:RouletteResult?)
     func rouletteChangeSound(_ cell:ElementDetailTableCell,_ sound:RouletteSound)
     func rouletteChangeStopSound(_ cell:ElementDetailTableCell,_ sound:RouletteStopSound)
-    func rouletteChangeArea(_ cell:ElementDetailTableCell,_ area:Int?,_ totalArea:Float)
+    func rouletteChangeArea(_ cell:ElementDetailTableCell,_ area:Float,_ totalArea:Float?)
     func rouletteClickColorButton(_ cell:ElementDetailTableCell,_ button:UIButton)
+    func detailGetNowTotalValue(_ cell:ElementDetailTableCell,_ beforeValue:Float)
 }
 
 extension ElementDetailTableCell:UITextFieldDelegate{

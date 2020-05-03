@@ -33,6 +33,7 @@ class ElementDetailTableCell: UITableViewCell {
     var detailResultSegment : UISegmentedControl!
     ///現在の指定されたトータルの数値0~100%
     var totalArea : Float!
+    var beforeValue : Float!
     var rouletteStopSoundPlayer : AVAudioPlayer!
 
     override func awakeFromNib() {

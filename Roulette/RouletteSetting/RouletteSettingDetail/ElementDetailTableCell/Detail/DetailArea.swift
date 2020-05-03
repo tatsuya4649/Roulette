@@ -38,9 +38,13 @@ extension ElementDetailTableCell{
                     totalArea -= number
                 }
             }
+        }else{
+            totalArea = Float(0)
         }
     }
     @objc func detailAreaTextInput(_ sender:UITextField){
+        guard let delegate = delegate else{return}
+        delegate.detailGetNowTotalValue(self, beforeValue != nil ? beforeValue : 0)
         guard let text = sender.text else{return}
         if var number = Int(text) {
             number =  Int(totalAreaCheck(Float(number)))
@@ -50,17 +54,16 @@ extension ElementDetailTableCell{
                 number = 0
             }
             sender.text = "\(number)"
-            guard let delegate = delegate else{return}
-            let changedNumber = (totalArea != nil ? totalArea! : 0) + Float(number)
-            delegate.rouletteChangeArea(self, number,changedNumber)
-            print("入力した値が整数として認識されました")
+            delegate.rouletteChangeArea(self, Float(number),Float(number))
+            beforeValue = Float(number)
         }else{
-            print("入力した値が整数として認識されませんでした")
             sender.text = nil
+            delegate.rouletteChangeArea(self, 0,nil)
+            beforeValue = nil
         }
     }
     private func totalAreaCheck(_ number:Float)->Float{
-        let changedNumber = (totalArea != nil ? totalArea! : 0) + number
+        let changedNumber = totalArea + number
         if changedNumber > 100{
             detailAreaTextField.text = "\(100 - totalArea)"
             return 100 - totalArea

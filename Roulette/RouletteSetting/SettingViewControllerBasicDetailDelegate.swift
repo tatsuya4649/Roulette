@@ -11,9 +11,9 @@ import UIKit
 
 extension SettingViewController:RouletteBasicSettingDelegate{
     
-    public func goToDetailBasicSetting(_ cell:ElementTableCell){
+    @objc func goBasicSetting(_ sender:UIBarButtonItem){
         basicSettingViewController = RouletteBasicSettingViewController()
-        let title = cell.basicTitle.text
+        let title = rouletteTitle
         if title == nil{
             basicSettingViewController.title = "ルーレットの基本設定"
         }else{
@@ -23,6 +23,8 @@ extension SettingViewController:RouletteBasicSettingDelegate{
                 basicSettingViewController.title = "\(title!)の基本設定"
             }
         }
+        basicSettingViewController.rouletteBackgroundColor = rouletteBackgroundColor
+        basicSettingViewController.rouletteElementFontColor = rouletteElementFontColor
         basicSettingViewController.rouletteSound = rouletteSound
         basicSettingViewController.rouletteSpin = rouletteSpin
         basicSettingViewController.rouletteSpeed = rouletteSpeed
@@ -38,33 +40,49 @@ extension SettingViewController:RouletteBasicSettingDelegate{
         }else{
             self.title = "ルーレットセッティング"
         }
-        let cell = elementTable.cellForRow(at: IndexPath(row: 0, section: 0)) as? ElementTableCell
-        if let textFiled = cell?.basicTitle{
-            textFiled.text = title
-        }
+        rouletteTitle = title
+        //let cell = elementTable.cellForRow(at: IndexPath(row: 0, section: 0)) as? ElementTableCell
+        //if let textFiled = cell?.basicTitle{
+            //textFiled.text = title
+        //}
     }
     func changeBackgroundColor(_ rouletteBackgroundColor: UIColor) {
         print("ルーレットの背景色が変更されました。")
         self.rouletteBackgroundColor = rouletteBackgroundColor
+        guard let _ = rouletteViewController else{return}
+        rouletteViewController.rouletteBackgroundColor = rouletteBackgroundColor
+        rouletteViewController.view.backgroundColor = rouletteBackgroundColor
     }
     func chnageElementFontColor(_ rouletteElementFontColor: UIColor) {
         print("ルーレットの項目の文字色が変更されました。")
         self.rouletteElementFontColor = rouletteElementFontColor
+        guard let _ = rouletteViewController else{return}
+        rouletteViewController.elementFontColor = rouletteElementFontColor.cgColor
+        rouletteViewController.changeTheLayer()
     }
     func changeRouletteSound(_ sound: RouletteSound) {
         print("ルーレットのサウンドが変更されました。")
         self.rouletteSound = sound
+        guard let _ = rouletteViewController else{return}
+        rouletteViewController.rouletteSound = sound
+        rouletteViewController.changeTheSound()
     }
     func changeRouletteSpin(_ spin: RouletteSpin) {
         print("ルーレットの回転方法が変更されました。")
         self.rouletteSpin = spin
+        guard let _ = rouletteViewController else{return}
+        rouletteViewController.rouletteSpin = spin
     }
     func changeRouletteSpeed(_ speed: Float) {
         print("ルーレットの回転スピードが変更されました。")
         self.rouletteSpeed = speed
+        guard let _ = rouletteViewController else{return}
+        rouletteViewController.rouletteSpeed = speed
     }
     func changeRouletteTime(_ time: Float) {
         print("ルーレットの回転時間が変更されました。")
         self.rouletteTime = time
+        guard let _ = rouletteViewController else{return}
+        rouletteViewController.rouletteTime = time
     }
 }

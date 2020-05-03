@@ -15,7 +15,7 @@ extension RouletteViewController{
             if let title = elements[number][.title] as? String{
                 stopLabel = UILabel()
                 stopLabel.text = title
-                stopLabel.font = .systemFont(ofSize: 50, weight: .semibold)
+                stopLabel.font = .systemFont(ofSize: 30, weight: .semibold)
                 if let hit = elements[number][.hit] as? RouletteResult{
                     switch hit {
                     case .hit:
@@ -29,7 +29,7 @@ extension RouletteViewController{
                     }
                 }
                 stopLabel.sizeToFit()
-                stopLabel.center = CGPoint(x: self.view.center.x, y: arrowDown.frame.minY - 20 - stopLabel.frame.size.height/2)
+                stopLabel.center = CGPoint(x: self.view.center.x, y: arrowDown.frame.minY + 10 - stopLabel.frame.size.height/2)
                 self.view.addSubview(stopLabel)
             }
         }

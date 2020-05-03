@@ -9,6 +9,16 @@
 import Foundation
 import UIKit
 
+protocol RouletteSettingDetailVieControllerDelegate : AnyObject{
+    func rouletteChangeTitle(_ cell:ElementTableCell,_ title:String?)
+    func rouletteChangeResult(_ cell:ElementTableCell,_ result:RouletteResult?)
+    func rouletteChangeSound(_ cell:ElementTableCell,_ sound:RouletteSound)
+    func rouletteChangeStopSound(_ cell:ElementTableCell,_ sound:RouletteStopSound)
+    func rouletteChangeArea(_ cell:ElementTableCell,_ area:Float,_ totalArea:Float?)
+    func rouletteChangeElementBackground(_ cell:ElementTableCell,_ newColor:UIColor)
+    func rouletteDetailGetNowTotalValue(_ cell:ElementTableCell,_ beforeValue:Float)
+}
+
 extension RouletteSettingDetailViewController:UITableViewDelegate,UITableViewDataSource,DetailSettingDelegate,UIPopoverPresentationControllerDelegate,ColorPickerViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -19,22 +29,62 @@ extension RouletteSettingDetailViewController:UITableViewDelegate,UITableViewDat
         self.title = "\(title != nil ? title! : "")の詳細設定"
         guard let title = title else{return}
         self.cell.nameTextField.text = "\(title)"
+        guard let delegate = delegate else{return}
+        delegate.rouletteChangeTitle(self.cell,title)
     }
     func rouletteChangeResult(_ cell: ElementDetailTableCell, _ result: RouletteResult?) {
         self.cell.hit = result
+        guard let delegate = delegate else{return}
+        delegate.rouletteChangeResult(self.cell,result)
     }
     func rouletteChangeSound(_ cell: ElementDetailTableCell, _ sound: RouletteSound) {
         
     }
     func rouletteChangeStopSound(_ cell: ElementDetailTableCell, _ sound: RouletteStopSound) {
         self.cell.stopSound = sound
+        guard let delegate = delegate else{return}
+        delegate.rouletteChangeStopSound(self.cell,sound)
     }
-    func rouletteChangeArea(_ cell: ElementDetailTableCell, _ area: Int?,_ totalArea:Float){
-        guard let area = area else{return}
-        self.cell.numberTextField.text = "\(area)"
-        self.totalArea = totalArea
-        print(totalArea)
-        
+    func rouletteChangeArea(_ cell: ElementDetailTableCell, _ area: Float,_ totalArea:Float?){
+        let changedNumber = self.totalArea + area
+        if let totalArea = totalArea{
+            if changedNumber > 100{
+                cell.detailAreaTextField.text = "\(Int(totalArea))"
+                self.totalArea = 100
+            }else{
+                self.totalArea = changedNumber
+            }
+            self.cell.numberTextField.text = "\(Int(totalArea))"
+            self.cell.beforeValue = totalArea
+            print(self.totalArea)
+            print("{{{{{{{{{{{{{{")
+            //self.totalArea = totalArea
+        }else{
+
+        }
+        guard let delegate = delegate else{return}
+        delegate.rouletteChangeArea(self.cell,area,totalArea)
+    }
+    
+    func detailGetNowTotalValue(_ cell:ElementDetailTableCell,_ beforeValue:Float){
+        if totalArea == nil{
+            totalArea = Float(0)
+            cell.totalArea = Float(0)
+        }else{
+            self.totalArea! -= beforeValue
+            if self.totalArea < 0{
+                self.totalArea = 0
+            }
+            cell.totalArea = self.totalArea!
+        }
+        guard let delegate = delegate else{return}
+        delegate.rouletteDetailGetNowTotalValue(self.cell, beforeValue)
+    }
+    
+    public func stopSoundStop(){
+        if let cell = elementTable.cellForRow(at: IndexPath(row: 3, section: 0)) as? ElementDetailTableCell{
+            cell.stopSound()
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,6 +101,7 @@ extension RouletteSettingDetailViewController:UITableViewDelegate,UITableViewDat
         case ElementDetailString.color.rawValue:
             cell.colorSetting(colorBackgroundColor)
         case ElementDetailString.area.rawValue:
+            cell.beforeValue = beforeValue
             cell.areaSetting(areaText)
         //case ElementDetailString.sound.rawValue:
             //cell.soundSetting()
@@ -97,6 +148,8 @@ extension RouletteSettingDetailViewController:UITableViewDelegate,UITableViewDat
         guard let layer = cell.detailColorButtonLayer else{return}
         layer.backgroundColor = newColor.cgColor
         self.cell.colorButtonLayer.backgroundColor = newColor.cgColor
+        guard let delegate = delegate else{return}
+        delegate.rouletteChangeElementBackground(self.cell,newColor)
     }
     
     func onColorChanged(newColor: UIColor, _ cell: ElementTableCell) {

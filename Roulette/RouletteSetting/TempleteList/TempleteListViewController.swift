@@ -32,6 +32,7 @@ class TempleteListViewController: UIViewController {
     var rouletteDataSearchArray : Array<Dictionary<RouletteDataElement,Any?>>!
     var searchBar : UISearchBar!
     var editNow : Bool!
+    var surfaceHeigt:CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

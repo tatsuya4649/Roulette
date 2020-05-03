@@ -45,7 +45,11 @@ extension RouletteBasicSettingViewController:UITableViewDelegate,UITableViewData
         cell.delegate = self
         return cell
     }
-    
+    public func stopSound(){
+        if let cell = basicTable.cellForRow(at: IndexPath(row: 0, section: RouletteBasicSettingSection.sound.rawValue)) as? BasicDetailCellTableViewCell{
+            cell.stopSound()
+        }
+    }
     public func basicTableViewSetting(){
         sections =  [
             "タイトル",

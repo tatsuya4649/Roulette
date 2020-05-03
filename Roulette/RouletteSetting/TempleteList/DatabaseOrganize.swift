@@ -19,7 +19,7 @@ extension TempleteListViewController{
             if let elementData = data.elements as? Data{
                 do{
                     if let dataToArray = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(elementData) as? Array<Dictionary<String,Any?>>{
-                        print(dataToArray)
+                        //rint(dataToArray)
                         dict[RouletteDataElement.elements] = chageFormat(dataToArray)
                     }
                 }catch{
@@ -29,7 +29,7 @@ extension TempleteListViewController{
             if let elementFontColorData = data.elementFontColor as? Data{
                 do{
                     if let fontColor = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(elementFontColorData) as? UIColor{
-                        print(fontColor)
+                        //print(fontColor)
                         dict[RouletteDataElement.elementFontColor] = fontColor
                     }
                 }catch{
@@ -39,7 +39,7 @@ extension TempleteListViewController{
             if let backgroundColorData = data.rouletteBackgroundColor as? Data{
                 do{
                     if let backgroundColor = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(backgroundColorData) as? UIColor{
-                        print(backgroundColor)
+                        //print(backgroundColor)
                         dict[RouletteDataElement.rouletteBackgroundColor] = backgroundColor
                     }
                 }catch{

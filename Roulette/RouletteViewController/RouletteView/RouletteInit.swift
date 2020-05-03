@@ -22,7 +22,6 @@ extension RouletteView{
         keyRange = Array<Range<CGFloat>>()
         for i in 0..<elements.count{
             guard let value = elements[i] as? [ElementEnum:Any?] else{return}
-            print("###############")
             print(value)
             addLayer(value[.title] as! String?,value[.color] as! CGColor?,value[.rate] as! Float)
         }

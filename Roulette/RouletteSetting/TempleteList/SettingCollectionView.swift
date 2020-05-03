@@ -27,7 +27,6 @@ extension TempleteListViewController:TempleteCollectionViewLayoutDelegate,UIColl
             i.removeFromSuperview()
         }
         if let rouletteData = rouletteDataSearchArray[indexPath.item] as? Dictionary<RouletteDataElement,Any?>{
-            print(rouletteData)
             if let elements = rouletteData[.elements] as? Array<Dictionary<ElementEnum, Any?>>{
                 cell.delegate = self
                 cell.elements = elements
@@ -41,17 +40,24 @@ extension TempleteListViewController:TempleteCollectionViewLayoutDelegate,UIColl
     public func settingTempleteCollection(){
         collectionViewLayout = TempleteCollectionViewLayout()
         collectionViewLayout.delegate = self
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height), collectionViewLayout:collectionViewLayout)
+        let naviHeight = self.navigationController != nil ? self.navigationController!.navigationBar.frame.size.height : 0
+        print(self.preferredContentSize)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: naviHeight, width: self.view.frame.size.width, height: self.view.frame.size.height - naviHeight), collectionViewLayout:collectionViewLayout)
         collectionView.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(TempleteListCell.self, forCellWithReuseIdentifier: "cell")
         self.view.addSubview(collectionView)
     }
+    func changeCollectionSize(){
+        let naviHeight = self.navigationController != nil ? self.navigationController!.navigationBar.frame.size.height : 0
+        collectionView.frame = CGRect(x: 0, y: naviHeight, width: self.view.frame.size.width, height: surfaceHeigt - naviHeight)
+    }
     func collectionView(_ collectionView: UICollectionView,_ width:CGFloat,heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat{
         if let rouletteData = rouletteDataSearchArray[indexPath.item] as? Dictionary<RouletteDataElement,Any?>,
             let elements = rouletteData[.elements] as? Array<Dictionary<ElementEnum, Any?>>
             {
+                print("テンプレートheightForPhotoAtIndexPath")
                 return TempleteListCell.cellHeight(width,elements,rouletteData)
         }
         return 0

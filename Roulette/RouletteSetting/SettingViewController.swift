@@ -35,7 +35,13 @@ class SettingViewController: UIViewController {
     var rouletteSpin : RouletteSpin!
     var rouletteSpeed : Float!
     var rouletteTime : Float!
-    var keyBoardCheck : Bool!
+    var tableHeaderRoulette : RouletteHeaderView!
+    var tableFooterRoulette : RouletteFooterView!
+    //ルーレットを保存・削除するために必要なプロパティ
+    var id : String!
+    var saveRoulette : Bool!
+    var addTemplateButton : UIButton!
+    var indexCell : Dictionary<Int,Dictionary<ElementEnum,Any?>>!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -45,12 +51,14 @@ class SettingViewController: UIViewController {
         settingElementTable()
         settingPlusButton()
         settingNavi()
+        settingTemplateAddingButton()
         // Do any additional setup after loading the view.
     }
+    
     @objc func goToRoulette(_ sender:UIButton){        
         rouletteViewController = RouletteViewController()
         rouletteViewController.elementFontColor = (rouletteElementFontColor != nil ? rouletteElementFontColor!.cgColor : UIColor.black.cgColor)
-        getElementEnum()
+        getElementEnum(completion:nil)
         rouletteViewController.elements = elements
         rouletteViewController.rouletteSound = rouletteSound
         rouletteViewController.rouletteSpin = rouletteSpin
@@ -63,51 +71,66 @@ class SettingViewController: UIViewController {
         self.navigationController?.pushViewController(rouletteViewController, animated: true)
     }
     ///作成したテーブルビューからそれぞれの要素を取得する
-    private func getElementEnum(){
-        elements = Array<Dictionary<ElementEnum,Any?>>()
+    public func getElementEnum(completion:(()->Void)?){
         if totalArea == nil{
             totalArea = Float(0)
         }
+        elements = Array<Dictionary<ElementEnum,Any?>>()
         var nilNumber = Float(0)
+        print(tableCellNumber)
+        
         for i in 0..<tableCellNumber{
-            if let cell = elementTable.cellForRow(at: IndexPath(row: i, section: 1)) as? ElementTableCell{
-                if cell.numberTextField.text!.count == 0{
+            //print(elementTable.cellForRow(at: IndexPath(row: i, section: 0)))
+            if let element = indexCell[i]{
+                print(element[.rate]!)
+                print(element[.rate]! == nil)
+                
+                if element[.rate]! == nil{
                     nilNumber += 1
+                    print(nilNumber)
+                    
                 }
             }
         }
+        //for i in elements{
+            //if i[.rate] == nil{
+                //nilNumber += 1
+            //}
+        //}
         //テーブルセルの数からセルを特定して要素を取得する
         for i in 0..<tableCellNumber{
-            if let cell = elementTable.cellForRow(at: IndexPath(row: i, section: 1)) as? ElementTableCell{
-                print((100-totalArea)/nilNumber)
-                elements.append([
-                    .title : cell.nameTextField.text,
-                    .color : cell.colorButtonLayer.backgroundColor,
-                    .rate : ( cell.numberTextField.text!.count != 0 ? Float(cell.numberTextField.text!) : (100-totalArea)/nilNumber),
-                    .stopSound : cell.stopSound,
-                    .hit : cell.hit != nil ? cell.hit : RouletteResult.none
-                ])
+            if var element = indexCell[i]{
+                if element[.rate]! == nil{
+                    element[.rate]! = (100-totalArea)/nilNumber      
+                }
+                elements.append(element)
+                //elements.append([
+                    //.title : cell.nameTextField.text,
+                    //.color : cell.colorButtonLayer.backgroundColor,
+                    //.rate : ( cell.numberTextField.text!.count != 0 ? Float(cell.numberTextField.text!) : (100-totalArea)/nilNumber),
+                    //.stopSound : cell.stopSound,
+                    //.hit : cell.hit != nil ? cell.hit : RouletteResult.none
+                //])
             }
-        }        
-    }
-    public func addingNaviButton(){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "完了", style: .done, target: self, action: #selector(goToRoulette))
-    }
-    public func removeNaviButton(){
-        self.navigationItem.rightBarButtonItem = nil
-    }
-    public func removeCellCheck(){
-        if tableCellNumber > 0{
-            addingNaviButton()
-        }else{
-            removeNaviButton()
         }
+        //for i in 0..<elements.count{
+            //if elements[i][.rate] == nil{
+                //elements[i][.rate] = (100-totalArea)/nilNumber
+            //}
+        //}
+        print(elements)
+        
+        completion?()
     }
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
                                  name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
                                  name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.view.endEditing(true)
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -132,7 +155,6 @@ class SettingViewController: UIViewController {
         guard let keyBoardRect = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect else{return}
         guard let duration = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as? TimeInterval else{return}
         print(notification)
-        guard keyBoardCheck == nil else{return}
         let transformY = -keyBoardRect.height
         UIView.animate(withDuration: duration, delay: 0.0, options: .curveEaseIn, animations: {[weak self] in
             guard let _ = self else{return }
@@ -147,7 +169,6 @@ class SettingViewController: UIViewController {
         print(duration)
         let transformY = keyBoardRect.height
         self.view.transform = CGAffineTransform(translationX: 0, y: 0)
-        keyBoardCheck = nil
     }
 
 }

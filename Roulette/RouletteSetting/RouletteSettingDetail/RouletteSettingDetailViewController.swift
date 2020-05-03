@@ -21,6 +21,8 @@ class RouletteSettingDetailViewController: UIViewController {
     var stopSound : RouletteStopSound!
     var colorPickerViewController : ColorPickerViewController!
     var totalArea : Float!
+    var beforeValue : Float!
+    weak var delegate : RouletteSettingDetailVieControllerDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -28,6 +30,10 @@ class RouletteSettingDetailViewController: UIViewController {
         elementTableSetting()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopSoundStop()
+    }
 
     /*
     // MARK: - Navigation

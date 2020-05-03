@@ -12,9 +12,6 @@ import AVFoundation
 extension RouletteViewController:AVAudioPlayerDelegate{
     public func settingRouletteSound(){
         //もしもサウンド設定がnoneのままだった場合は、流さない
-        if rouletteSound != nil{
-            guard rouletteSound != RouletteSound.none else { return }
-        }
         guard let path = Bundle.main.path(forResource: rouletteSound != nil ? rouletteSound.rawValue : "rouletteSound1", ofType: "m4a") else {return}
         do{
             rouletteRotationSound = try? AVAudioPlayer(contentsOf : URL(fileURLWithPath: path))

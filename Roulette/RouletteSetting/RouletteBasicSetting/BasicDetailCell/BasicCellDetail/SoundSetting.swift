@@ -87,6 +87,10 @@ extension BasicDetailCellTableViewCell:UIPickerViewDelegate,UIPickerViewDataSour
             print("サウンドの再生に失敗しました。")
         }
     }
+    ///ページから離れるときに呼び出して、オーディオを止めるための関数
+    public func stopSound(){
+        removeAVAudioPlayer()
+    }
     private func removeAVAudioPlayer(){
         guard let _ = rouletteRotationSound else{return}
         rouletteRotationSound = nil

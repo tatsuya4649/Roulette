@@ -32,8 +32,6 @@ extension ElementTableCell:UITextFieldDelegate{
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == basicTitle{
-            guard let delegate = delegate else{return true}
-            delegate.keyboardCheckTrueTitle()
         }else if textField == numberTextField || textField == nameTextField{
             guard let delegate = delegate else{return true}
             delegate.keyboardCheckTrueElement(self)
@@ -43,6 +41,6 @@ extension ElementTableCell:UITextFieldDelegate{
     @objc func changeBasicTitle(_ sender:UITextField){
         guard let title = sender.text else{return}
         guard let delegate = delegate else {return}
-        delegate.changeRouletteTitle(self,title)
+        //delegate.changeRouletteTitle(self,title)
     }
 }

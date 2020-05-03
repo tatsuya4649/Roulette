@@ -99,9 +99,10 @@ extension RouletteViewController{
             self!.soundStopSetting(number)
             self!.startButton.alpha = 1
             self!.startButton.isUserInteractionEnabled = true
+            self!.rouletteButton.isUserInteractionEnabled = true
             self!.restartRouletteButton()
-            //ルーレットが終わるまで戻れなくする
-            self!.navigationItem.setHidesBackButton(false, animated: true)
+            guard let delegate = self!.delegate else{return}
+            delegate.stopRouletteAnimation()
             //ルーレットが終了したらレビュー評価リクエストを出す
             SKStoreReviewController.requestReview()
         }
@@ -114,15 +115,15 @@ extension RouletteViewController{
         print(rouletteView.layer.speed)
         print(rouletteTime)
         
-        if rouletteView.layer.speed > 0.0025*rouletteSpeed{
-            if rouletteView.layer.speed > 1.5*rouletteSpeed{
-                rouletteView.layer.speed -= 0.1*rouletteSpeed/rouletteTime
-            }else if rouletteView.layer.speed > 0.5*rouletteSpeed{
-                rouletteView.layer.speed -= 0.05*rouletteSpeed/rouletteTime
-            }else if rouletteView.layer.speed > 0.05*rouletteSpeed{
-                rouletteView.layer.speed -= 0.03*rouletteSpeed/rouletteTime
+        if rouletteView.layer.speed > 0.01*rouletteSpeed{
+            if rouletteView.layer.speed > 6.0*rouletteSpeed{
+                rouletteView.layer.speed -= Float.random(in: 0.7..<0.8)*rouletteSpeed/rouletteTime
+            }else if rouletteView.layer.speed > 2.0*rouletteSpeed{
+                rouletteView.layer.speed -= Float.random(in: 0.4..<0.5)*rouletteSpeed/rouletteTime
+            }else if rouletteView.layer.speed > 0.2*rouletteSpeed{
+                rouletteView.layer.speed -= Float.random(in: 0.1..<0.2)*rouletteSpeed/rouletteTime
             }else if rouletteView.layer.speed > 0{
-                rouletteView.layer.speed -= 0.01*rouletteSpeed/rouletteTime
+                rouletteView.layer.speed -= Float.random(in: 0.04..<0.08)*rouletteSpeed/rouletteTime
             }
         }else{
             rouletteView.layer.speed = 0
