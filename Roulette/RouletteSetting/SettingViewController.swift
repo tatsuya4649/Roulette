@@ -50,6 +50,7 @@ class SettingViewController: UIViewController {
         //rouletteTextFieldSetting()
         settingElementTable()
         settingPlusButton()
+        //ナビゲーションバーのセッティング
         settingNavi()
         settingTemplateAddingButton()
         // Do any additional setup after loading the view.

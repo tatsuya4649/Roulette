@@ -60,9 +60,7 @@ class RouletteViewController: UIViewController {
     }
     
     private func settingRouletteView(){
-        print(self.view.frame.size.height/self.view.frame.size.width)
         let height = self.view.frame.size.height/self.view.frame.size.width < 1.2 ? min(self.view.frame.size.width*0.6,500) : min(self.view.frame.size.width*0.8,500)
-        
         rouletteView = RouletteView(frame:CGRect(x:0,y:0,width:height,height:height),elements: elements,fontColor:elementFontColor)
         rouletteView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 10)
         self.view.addSubview(rouletteView)

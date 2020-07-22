@@ -17,7 +17,7 @@ extension SettingViewController:UITableViewDelegate,UITableViewDataSource,Elemen
         self.navigationItem.rightBarButtonItem = nil
         addTemplateButton.alpha = 0
         addSettingButton.alpha = 0
-        elementCellUserEnabled(false)
+        //elementCellUserEnabled(false)
     }
     ///ルーレットの回転が終わったときに呼び出されるデリゲートメソッド
     func stopRouletteAnimation() {
@@ -115,15 +115,14 @@ extension SettingViewController:UITableViewDelegate,UITableViewDataSource,Elemen
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && (editingStyle == .delete) {
             print("要素を消しました")
-            print(indexPath.row)
-            print(indexCell.keys)
             tableCellNumber -= 1
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()
-            indexCell[indexPath.row] = nil
+            if indexPath.row != indexCell.keys.max(){
+                indexCell[indexPath.row] = nil
+            }
             for key in indexCell.keys.sorted(){
-                print(key)
                 if key > indexPath.row{
                     indexCell[key-1] = indexCell[key]
                 }
@@ -164,7 +163,6 @@ extension SettingViewController:UITableViewDelegate,UITableViewDataSource,Elemen
         }
     }
     func areaChangeGetter(_ cell: ElementTableCell, _ area: Float,_ totalArea : Float?) {
-        print("おいこれ？")
         print(self.totalArea)
         if self.totalArea == nil{
             self.totalArea = Float(0)

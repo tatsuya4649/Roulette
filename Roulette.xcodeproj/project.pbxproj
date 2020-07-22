@@ -35,6 +35,7 @@
 		744AA4D62457A29000F118EC /* rouletteSound3.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 744AA4D52457A29000F118EC /* rouletteSound3.m4a */; };
 		744AA4D82457A95700F118EC /* rouletteSound5.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 744AA4D72457A95700F118EC /* rouletteSound5.m4a */; };
 		745548D52453B5ED00E02B9C /* ElementTableCellBasicSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745548D42453B5ED00E02B9C /* ElementTableCellBasicSetting.swift */; };
+		745EE963245E563400840D3C /* UITextFieldAddingDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745EE962245E563400840D3C /* UITextFieldAddingDoneButton.swift */; };
 		7465978A244FD6D900116025 /* SettingRouletteAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74659789244FD6D900116025 /* SettingRouletteAnimation.swift */; };
 		7465978C244FDE5B00116025 /* RouletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465978B244FDE5B00116025 /* RouletteView.swift */; };
 		7465978E244FE18000116025 /* SettingElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465978D244FE18000116025 /* SettingElement.swift */; };
@@ -108,6 +109,7 @@
 		744AA4D52457A29000F118EC /* rouletteSound3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = rouletteSound3.m4a; sourceTree = "<group>"; };
 		744AA4D72457A95700F118EC /* rouletteSound5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = rouletteSound5.m4a; sourceTree = "<group>"; };
 		745548D42453B5ED00E02B9C /* ElementTableCellBasicSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementTableCellBasicSetting.swift; sourceTree = "<group>"; };
+		745EE962245E563400840D3C /* UITextFieldAddingDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAddingDoneButton.swift; sourceTree = "<group>"; };
 		74659789244FD6D900116025 /* SettingRouletteAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRouletteAnimation.swift; sourceTree = "<group>"; };
 		7465978B244FDE5B00116025 /* RouletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouletteView.swift; sourceTree = "<group>"; };
 		7465978D244FE18000116025 /* SettingElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingElement.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				74AF00AB244EECB60057A554 /* AppDelegate.swift */,
 				74AF00AD244EECB60057A554 /* SceneDelegate.swift */,
 				74035B892453CD450071F865 /* ColorButton.swift */,
+				745EE962245E563400840D3C /* UITextFieldAddingDoneButton.swift */,
 				74D1EFDB2450459F002FBDB6 /* RouletteSetting */,
 				74659792244FE28200116025 /* RouletteViewController */,
 				74AF00B1244EECB70057A554 /* Assets.xcassets */,
@@ -542,6 +545,7 @@
 				745548D52453B5ED00E02B9C /* ElementTableCellBasicSetting.swift in Sources */,
 				74CA694A24552E0D00F058A5 /* TemplateListCellEdit.swift in Sources */,
 				74CA69442454FFEF00F058A5 /* DatabaseOrganize.swift in Sources */,
+				745EE963245E563400840D3C /* UITextFieldAddingDoneButton.swift in Sources */,
 				74CA693C24542C3300F058A5 /* TempleteCollectionViewLayout.swift in Sources */,
 				7465978E244FE18000116025 /* SettingElement.swift in Sources */,
 				74035B7B2453C3790071F865 /* BasicDetailCellTableViewCell.swift in Sources */,
@@ -738,7 +742,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = Tatsuya.S.Roulette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -760,7 +764,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = Tatsuya.S.Roulette;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -32,6 +32,7 @@ extension ElementDetailTableCell:UITextFieldDelegate{
         detailTitleTextField.leftViewMode = UITextField.ViewMode.always
         detailTitleTextField.returnKeyType = .done
         detailTitleTextField.delegate = self
+        detailTitleTextField.addDoneCancelToolbar()
         detailTitleTextField.addTarget(self, action: #selector(changeTitle), for: .editingChanged)
         self.contentView.addSubview(detailTitleTextField)
     }

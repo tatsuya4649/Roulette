@@ -21,6 +21,7 @@ extension BasicDetailCellTableViewCell:UITextFieldDelegate{
         titleText.layer.cornerRadius = 5
         titleText.leftView = UIView(frame: CGRect(x:0, y:0, width:10, height:0))
         titleText.leftViewMode = UITextField.ViewMode.always
+        titleText.addDoneCancelToolbar()
         titleText.center = CGPoint(x: 10 + titleText.frame.size.width/2, y: self.contentView.frame.size.height/2)
         titleText.addTarget(self, action: #selector(changeRouletteTitle), for: .editingChanged)
         self.contentView.addSubview(titleText)

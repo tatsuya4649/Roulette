@@ -61,6 +61,7 @@ class ElementTableCell: UITableViewCell {
         nameTextField.returnKeyType = .done
         nameTextField.leftView = UIView(frame: CGRect(x:0, y:0, width:10, height:0))
         nameTextField.leftViewMode = UITextField.ViewMode.always
+        nameTextField.addDoneCancelToolbar(onDone: (target: self, action: #selector(endInput)))
         nameTextField.center = CGPoint(x: colorButton.frame.maxX + 10 + nameTextField.frame.size.width/2, y: self.contentView.frame.size.height/2)
         nameTextField.addTarget(self, action: #selector(changeRouletteElementTitle), for: .editingChanged)
         self.contentView.addSubview(nameTextField)
@@ -72,6 +73,7 @@ class ElementTableCell: UITableViewCell {
         numberTextField.leftView = UIView(frame: CGRect(x:0, y:0, width:5, height:0))
         numberTextField.leftViewMode = UITextField.ViewMode.always
         numberTextField.keyboardType = .numberPad
+        numberTextField.addDoneCancelToolbar(onDone: (target: self, action: #selector(endInput)))
         numberTextField.delegate = self
         numberTextField.returnKeyType = .done
         numberTextField.center = CGPoint(x: nameTextField.frame.maxX + 10 + numberTextField.frame.size.width/2, y: self.contentView.frame.size.height/2)
@@ -138,7 +140,6 @@ class ElementTableCell: UITableViewCell {
             return number
         }
     }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -149,5 +150,11 @@ class ElementTableCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    @objc func endInput(){
+        numberTextField.resignFirstResponder()
+        nameTextField.resignFirstResponder()
+    }
 
 }
+

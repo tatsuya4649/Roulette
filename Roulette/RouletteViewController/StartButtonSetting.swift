@@ -78,6 +78,6 @@ extension RouletteViewController{
         startButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         startButton.titleLabel?.sizeToFit()
         startButton.sizeToFit()
-        startButton.center = CGPoint(x: self.view.center.x, y: rouletteView.frame.maxY + 20 + startButton.frame.size.height/2)
+        startButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.size.height - 10 - startButton.frame.size.height/2)
     }
 }

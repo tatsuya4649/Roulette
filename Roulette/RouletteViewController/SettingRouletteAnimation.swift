@@ -24,8 +24,14 @@ extension RouletteViewController{
         rouletteView.layer.speed = Float.random(in: 5.0*rouletteSpeed..<5.25*rouletteSpeed)
         rouletteView.layer.add(spinAnimation, forKey: "spinAnimation")
         animationTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(speedDown), userInfo: nil, repeats: true)
-        guard let rouletteRotationSound = rouletteRotationSound else {return}
-        rouletteRotationSound.play()
+        if let rouletteRotationSound = rouletteRotationSound{
+            rouletteRotationSound.play()
+        }else{
+            settingRouletteSound()
+            guard let _ = rouletteRotationSound else{return}
+            rouletteRotationSound.play()
+        }
+        
     }
     public func rouletteManualSetting(){
         spinAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -40,8 +46,14 @@ extension RouletteViewController{
         rouletteView.layer.add(spinAnimation, forKey: "spinAnimation")
         startButton.removeTarget(nil, action: nil, for: .allEvents)
         startButton.addTarget(self, action: #selector(stopAnimation), for: .touchUpInside)
-        guard let rouletteRotationSound = rouletteRotationSound else {return}
-        rouletteRotationSound.play()
+        startButton.center = CGPoint(x: self.view.center.x, y: self.view.frame.size.height - 10 - startButton.frame.size.height/2)
+        if let rouletteRotationSound = rouletteRotationSound{
+            rouletteRotationSound.play()
+        }else{
+            settingRouletteSound()
+            guard let _ = rouletteRotationSound else{return}
+            rouletteRotationSound.play()
+        }
     }
     @objc func stopAnimation(_ sender:UIButton){
         guard let _ = spinAnimation else{return}
@@ -66,8 +78,13 @@ extension RouletteViewController{
         rouletteView.layer.add(spinAnimation, forKey: "spinAnimation")
         startButton.removeTarget(nil, action: nil, for: .allEvents)
         startButton.addTarget(self, action: #selector(semiStopAnimation), for: .touchUpInside)
-        guard let rouletteRotationSound = rouletteRotationSound else {return}
-        rouletteRotationSound.play()
+        if let rouletteRotationSound = rouletteRotationSound{
+            rouletteRotationSound.play()
+        }else{
+            settingRouletteSound()
+            guard let _ = rouletteRotationSound else{return}
+            rouletteRotationSound.play()
+        }
     }
     @objc func semiStopAnimation(_ sender:UIButton){
         startButton.isUserInteractionEnabled = false

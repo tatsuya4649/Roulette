@@ -25,6 +25,7 @@ extension ElementDetailTableCell{
         detailAreaTextField.backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
         detailAreaTextField.layer.cornerRadius = 5
         detailAreaTextField.keyboardType = .numberPad
+        detailAreaTextField.addDoneCancelToolbar()
         detailAreaTextField.leftView = UIView(frame: CGRect(x:0, y:0, width:5, height:0))
         detailAreaTextField.leftViewMode = UITextField.ViewMode.always
         detailAreaTextField.center = CGPoint(x: detailAreaPercent.frame.minX - 10 - detailAreaTextField.frame.size.width/2, y: self.contentView.frame.size.height/2)
