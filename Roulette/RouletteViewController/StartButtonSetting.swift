@@ -12,6 +12,7 @@ import UIKit
 protocol RouletteViewControllerDelegtate:AnyObject {
     func startRouletteAnimation()
     func stopRouletteAnimation()
+    func toRecommendShare(_ rouletteImage:UIImage)
 }
 extension RouletteViewController{
     public func startButtonSetting(){

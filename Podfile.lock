@@ -1,6 +1,6 @@
 PODS:
-  - FloatingPanel (1.7.4)
-  - FontAwesome.swift (1.9.0)
+  - FloatingPanel (1.7.5)
+  - FontAwesome.swift (5.14.0)
   - SPAlert (2.1.4)
 
 DEPENDENCIES:
@@ -15,8 +15,8 @@ SPEC REPOS:
     - SPAlert
 
 SPEC CHECKSUMS:
-  FloatingPanel: 3c9d0e30fe350e1613157557769d2ec97f76b96b
-  FontAwesome.swift: a403b88cec950511745ba8f2decd1b6a07346d13
+  FloatingPanel: bb17fd6fc7ae519f877f7bd30f4f6115a78acf07
+  FontAwesome.swift: bbb75cd5b380ffb297f557301468a901a1c0cfad
   SPAlert: 1a8afa1c6ac86a82ab5b2cfdf7f9a51e68cb6c0c
 
 PODFILE CHECKSUM: 540623d265f53e578956aed909fbd25207badc96

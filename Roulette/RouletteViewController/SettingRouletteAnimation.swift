@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import AVFoundation
-import StoreKit
 
 extension RouletteViewController{
     public func rouletteSetting(){
@@ -120,8 +119,9 @@ extension RouletteViewController{
             self!.restartRouletteButton()
             guard let delegate = self!.delegate else{return}
             delegate.stopRouletteAnimation()
-            //ルーレットが終了したらレビュー評価リクエストを出す
-            SKStoreReviewController.requestReview()
+            //ルーレットのビューを画像として取得する
+            guard let image = rouletteView.asImage() else {return}
+            delegate.toRecommendShare(image)
         }
     }
     @objc func speedDown(_ timer:Timer){

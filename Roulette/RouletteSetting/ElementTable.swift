@@ -8,8 +8,15 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 extension SettingViewController:UITableViewDelegate,UITableViewDataSource,ElementTableCellDelegate,ColorPickerViewDelegate,UIPopoverPresentationControllerDelegate,RouletteHeaderViewDelegate,RouletteFooterViewDelegate,RouletteSettingDetailVieControllerDelegate{
+    
+    //ルーレットの回転が終了したとに呼び出されるデリゲートメソッド
+    //ルーレット画像を引数に持ち、ユーザーにシェアを促す
+    func toRecommendShare(_ rouletteImage: UIImage) {
+        
+    }
     
     ///ルーレットが回転を始めたときに呼び出されるデリゲートメソッド
     func startRouletteAnimation() {

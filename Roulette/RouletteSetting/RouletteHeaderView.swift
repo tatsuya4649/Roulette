@@ -12,6 +12,7 @@ protocol RouletteHeaderViewDelegate:AnyObject{
     func rouletteVieChange() -> RouletteViewController
     func startRouletteAnimation()
     func stopRouletteAnimation()
+    func toRecommendShare(_ rouletteImage:UIImage)
 }
 class RouletteHeaderView: UITableViewHeaderFooterView,RouletteViewControllerDelegtate {
     func startRouletteAnimation() {
@@ -22,6 +23,11 @@ class RouletteHeaderView: UITableViewHeaderFooterView,RouletteViewControllerDele
     func stopRouletteAnimation() {
         guard let delegate = delegate else{return}
         delegate.stopRouletteAnimation()
+    }
+    
+    func toRecommendShare(_ rouletteImage:UIImage){
+        guard let delegate = delegate else{return}
+        delegate.toRecommendShare(rouletteImage)
     }
     weak var delegate : RouletteHeaderViewDelegate!
     var rouletteViewController : RouletteViewController!
